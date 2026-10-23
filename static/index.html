@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f7f8fc"><meta name="description" content="安逸智能AI，支持深度思考、联网搜索、图片与文件问答的智能助手。">
+  <title>安逸智能AI · 让灵感自在发生</title><link rel="icon" href="/static/brand/favicon-v1.png" type="image/png">
+  <link rel="stylesheet" href="/static/vendor/highlight.css"><link rel="stylesheet" href="/static/vendor/katex/katex.min.css"><link rel="stylesheet" href="/static/style.css?v=6">
+  <script src="/static/vendor/marked.js" defer></script><script src="/static/vendor/purify.js" defer></script><script src="/static/vendor/highlight.js" defer></script><script src="/static/vendor/katex/katex.min.js" defer></script><script src="/static/vendor/katex/auto-render.min.js" defer></script><script src="/static/history-store.js?v=4" defer></script><script src="/static/auth-client.js?v=5" defer></script><script src="/static/app.js?v=7" defer></script>
+</head>
+<body>
+<svg class="svg-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+<symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></symbol>
+<symbol id="i-panel" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M9 4v16"/></symbol>
+<symbol id="i-edit" viewBox="0 0 24 24"><path d="m15 5 4 4M4 20l5-1L21 7l-4-4L5 15z"/></symbol>
+<symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M9 6V3h6v3M6 6l1 15h10l1-15M10 10v7M14 10v7"/></symbol>
+<symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M15 8V3H3v13h5"/></symbol>
+<symbol id="i-retry" viewBox="0 0 24 24"><path d="M20 11a8 8 0 1 0-2 7M20 4v7h-7"/></symbol>
+<symbol id="i-volume" viewBox="0 0 24 24"><path d="M11 4 6 8H3v8h3l5 4zM15 8a6 6 0 0 1 0 8M18 4a11 11 0 0 1 0 16"/></symbol>
+<symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 10v2a7 7 0 0 0 14 0v-2M12 19v3M8 22h8"/></symbol>
+<symbol id="i-attach" viewBox="0 0 24 24"><path d="m8 13 7-7a3 3 0 0 1 4 4l-9 9a5 5 0 0 1-7-7l9-9M7 15l8-8"/></symbol>
+<symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c5 5 5 13 0 18-5-5-5-13 0-18"/></symbol>
+<symbol id="i-think" viewBox="0 0 24 24"><path d="M9 18h6M9 21h6M8 15a7 7 0 1 1 8 0l-1 3H9zM10 8l2 2 2-2"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 24 24"><path d="M12 20V4m-6 6 6-6 6 6"/></symbol>
+<symbol id="i-down" viewBox="0 0 24 24"><path d="M12 4v16m-6-6 6 6 6-6"/></symbol>
+<symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+<symbol id="i-file" viewBox="0 0 24 24"><path d="M14 3H5v18h14V8zM14 3v5h5M8 13h8M8 17h6"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1 1m12 12 1 1M5 19l1-1M18 6l1-1"/></symbol>
+<symbol id="i-code" viewBox="0 0 24 24"><path d="m8 6-6 6 6 6m8-12 6 6-6 6M14 3l-4 18"/></symbol>
+</defs></svg>
+<section id="auth-screen" class="auth-screen" aria-label="账号登录">
+  <a class="auth-wordmark" href="/" aria-label="安逸智能AI首页"><img class="logo brand-image" src="/static/brand/anyi-ai-logo-v1.png" alt=""><strong>安逸智能AI</strong></a>
+  <div class="auth-content">
+    <p class="auth-boot" id="auth-boot" role="status">正在检查登录状态…</p>
+    <form id="auth-form" class="auth-form" novalidate hidden>
+      <div class="auth-heading"><h1 id="auth-title">欢迎使用安逸智能AI</h1><p id="auth-subtitle">登录，继续你的思考与探索</p></div>
+      <p id="auth-dev-note" class="auth-notice" hidden>本地联调模式，短信验证码会显示在页面，尚未接通真实短信。</p>
+      <div id="auth-tabs" class="auth-tabs" role="tablist" aria-label="登录方式"><button type="button" role="tab" data-auth-mode="sms" aria-selected="true">验证码登录</button><button type="button" role="tab" data-auth-mode="password" aria-selected="false">密码登录</button></div>
+      <div id="auth-error" class="auth-error" role="alert" hidden></div>
+      <div class="auth-field"><label for="auth-phone">手机号</label><div class="auth-input-line phone-line"><span class="country-code">+86</span><input id="auth-phone" type="tel" inputmode="numeric" autocomplete="tel-national" maxlength="11" placeholder="请输入手机号" aria-describedby="auth-phone-error"></div><small id="auth-phone-error" class="field-error"></small></div>
+      <div class="auth-field" id="code-field"><label for="auth-code">短信验证码</label><div class="auth-input-line code-line"><input id="auth-code" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="8" placeholder="请输入短信验证码" aria-describedby="auth-code-error"><button id="send-code" type="button" disabled>获取验证码</button></div><small id="auth-code-error" class="field-error"></small></div>
+      <div class="auth-field" id="password-field" hidden><label for="auth-password">密码</label><div class="auth-input-line password-line"><input id="auth-password" type="password" autocomplete="current-password" maxlength="64" placeholder="请输入密码" aria-describedby="auth-password-error"><button id="toggle-password" type="button" aria-label="显示密码">显示</button></div><small id="auth-password-error" class="field-error"></small></div>
+      <p id="auth-notice" class="auth-notice" role="status" hidden></p>
+      <button id="auth-submit" class="auth-submit" type="submit" disabled>登录</button>
+      <div class="auth-links"><p id="registration-link">还没有账号？<button type="button" data-auth-mode="register">立即注册</button></p><button id="back-login" type="button" data-auth-mode="sms" hidden>已有账号，返回登录</button><button id="switch-sms" type="button" data-auth-mode="sms" hidden>忘记密码？使用验证码登录</button></div>
+      <p class="auth-privacy">使用安逸账号登录。手机号与验证码由安逸账号服务处理，聊天记录按账号保存在当前浏览器。</p>
+    </form>
+  </div>
+  <footer class="auth-footer">安逸智能AI <span>·</span> 让灵感自在发生</footer>
+</section>
+<dialog id="captcha-dialog" class="captcha-dialog" aria-labelledby="captcha-title" aria-describedby="captcha-description">
+  <form id="captcha-form" novalidate>
+    <div class="captcha-heading"><h2 id="captcha-title">安全验证</h2><button id="captcha-close" type="button" aria-label="关闭安全验证">×</button></div>
+    <p id="captcha-description">输入图中字符，验证通过后发送短信验证码。</p>
+      <div class="auth-field"><label for="auth-captcha">图形验证码</label><div class="captcha-line"><input id="auth-captcha" class="auth-input-line" type="text" maxlength="8" autocomplete="off" placeholder="请输入图形验证码" aria-describedby="auth-captcha-error"><button id="captcha-refresh" type="button" class="captcha-refresh" aria-label="刷新图形验证码" title="点击刷新验证码"><img id="captcha-image" alt="图形验证码" hidden><span id="captcha-loading">点击加载</span></button></div><small id="auth-captcha-error" class="field-error"></small></div>
+    <p id="captcha-error" class="auth-error" role="alert" hidden></p>
+    <button id="captcha-confirm" class="auth-submit" type="submit">验证并发送</button>
+  </form>
+</dialog>
+<div id="chat-app" hidden>
+<button id="backdrop" class="backdrop" aria-label="关闭对话列表" hidden></button>
+<aside id="sidebar" aria-label="侧栏">
+  <a class="brand" href="/"><img class="logo brand-image" src="/static/brand/anyi-ai-logo-v1.png" alt=""><strong>安逸智能AI</strong></a>
+  <button class="new-chat" id="new"><span data-icon="plus"></span>开启新对话<span class="shortcut">Ctrl K</span></button>
+  <label class="history-search"><span data-icon="search"></span><input id="history-search" type="search" placeholder="搜索历史对话" aria-label="搜索历史对话"></label>
+  <nav id="history" aria-label="对话历史"></nav>
+  <div id="account-area" class="account-area"><div id="account-menu" class="account-menu" hidden><strong id="account-menu-name"></strong><small id="account-menu-phone"></small><button id="logout" type="button">退出登录</button></div><button id="account-button" class="sidebar-footer" type="button" aria-expanded="false" aria-controls="account-menu"><span id="account-avatar" class="avatar">逸</span><span><strong id="account-name">安逸用户</strong><small id="account-phone"></small></span><span class="account-chevron">⌃</span></button></div>
+</aside>
+<main>
+  <header><button id="menu" class="icon-button" aria-label="展开或收起对话列表" aria-expanded="false"><span data-icon="panel"></span></button><span class="header-brand">安逸智能AI <small>DeepSeek V4 Pro</small></span><button id="export" class="quiet-button" title="导出当前对话为 Markdown" disabled><span data-icon="download"></span><span>导出对话</span></button></header>
+  <div id="legacy-banner" class="legacy-banner" hidden><span>此浏览器有旧版未登录对话，可导入当前账号。</span><button id="import-legacy" type="button">导入我的旧对话</button><button id="skip-legacy" type="button">暂不导入</button></div>
+  <div id="scroll">
+    <section id="welcome"><img class="welcome-logo logo brand-image" src="/static/brand/anyi-ai-logo-v1.png" alt=""><h1>你好，我是安逸智能AI</h1><p>写作、编程、读文件，或者聊一个新想法。</p>
+      <div class="suggestions"><button data-prompt="帮我写一段温暖自然的自我介绍"><span data-icon="edit"></span>帮我写作</button><button data-prompt="为初学者制定一份 Python 学习计划"><span data-icon="code"></span>学习与编程</button><button data-prompt="给我一些适合周末放松的活动灵感"><span data-icon="sun"></span>找点灵感</button></div>
+      <p class="welcome-hint">支持粘贴图片、拖入文件，也可以直接开口说</p>
+    </section>
+    <section id="messages" aria-label="聊天消息"></section>
+  </div>
+  <div class="compose-wrap">
+    <button id="jump-bottom" class="jump-bottom" aria-label="回到最新消息" hidden><span data-icon="down"></span></button>
+    <div id="error" class="error-banner" role="alert" hidden><span id="error-text"></span><button id="dismiss-error" class="icon-button" aria-label="关闭提示"><span data-icon="close"></span></button></div>
+    <div id="edit-banner" class="edit-banner" hidden><span>正在编辑提问，将创建新分支并保留原对话</span><button id="cancel-edit" type="button">取消编辑</button></div>
+    <form id="form">
+      <div id="attachments" class="attachment-list" aria-label="待发送附件"></div>
+      <label class="sr-only" for="input">发送给安逸智能AI的消息</label><textarea id="input" placeholder="给安逸发消息，聊聊你的想法…" rows="2" maxlength="16000"></textarea>
+      <div class="compose-toolbar"><div class="mode-buttons"><button id="thinking" type="button" class="mode-button" aria-pressed="false" title="开启后会进行更深入的推理"><span data-icon="think"></span>深度思考</button><button id="search" type="button" class="mode-button" aria-pressed="false" title="搜索网页后回答，并展示来源"><span data-icon="globe"></span>联网搜索</button></div><div class="compose-actions"><button id="attach" type="button" class="icon-button" aria-label="上传图片或文件" title="图片、PDF、DOCX、TXT 等，单个不超过 10 MB"><span data-icon="attach"></span></button><button id="mic" type="button" class="icon-button" aria-label="开始语音输入" title="语音输入"><span data-icon="mic"></span></button><button id="send" type="submit" aria-label="发送消息" disabled><span data-icon="arrow"></span></button><button id="stop" type="button" hidden aria-label="停止生成"><span class="stop-square"></span></button></div></div>
+      <input id="file-input" type="file" multiple accept="image/png,image/jpeg,image/webp,image/gif,.pdf,.docx,.txt,.md,.csv,.json,.py,.js,.ts,.html,.css,.log" hidden><input id="audio-input" type="file" accept="audio/*" hidden>
+    </form>
+    <div class="composer-meta"><span id="context-usage" title="上下文上限为 1,048,576 Token，包含历史、附件和本轮回答空间">上下文 1M</span><span id="capability-hint">图片由 Flash 识别，Pro 分析回答</span><span id="char-count"></span></div>
+    <div id="speech-help" class="speech-help" hidden><span id="speech-help-text"></span><button type="button" id="upload-audio">上传录音识别</button><button type="button" id="close-speech-help" aria-label="关闭语音提示">×</button></div>
+    <div id="voice-panel" class="voice-panel" hidden><span id="voice-state" role="status"></span><button id="voice-pause" type="button">暂停</button><button id="voice-end" type="button">停止</button><label>语速 <select id="voice-rate" aria-label="朗读语速"><option value="0.8">0.8×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option></select></label></div>
+    <p class="disclaimer">内容由 AI 生成，请核实重要信息 <span>·</span> Enter 发送，Shift + Enter 换行</p>
+  </div>
+</main>
+</div>
+<div id="toast" role="status" hidden></div>
+<dialog id="image-dialog" aria-label="图片预览"><button id="close-preview" class="icon-button" aria-label="关闭图片预览"><span data-icon="close"></span></button><img id="preview-image" alt="附件大图"></dialog>
+</body></html>
